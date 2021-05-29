@@ -2,10 +2,10 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory, useParams } from 'react-router-dom'
 
+import List from '../components/List'
 import Loader from '../components/Loader'
 
 import Typography from 'antd/lib/typography'
-import List from 'antd/lib/list'
 
 import { fetchCurrentPage, setCurrentPlanet } from '../store/actions/planets'
 
@@ -49,33 +49,8 @@ const CurrentPlanet: React.FC = () => {
           <Typography.Paragraph>Terrain: {currenPlanet.terrain}</Typography.Paragraph>
           <Typography.Paragraph>Surface water: {currenPlanet.surface_water}</Typography.Paragraph>
           <Typography.Paragraph>Population: {currenPlanet.population}</Typography.Paragraph>
-          {currenPlanet.residents.length ? (
-            <List
-              header={<Typography.Text>Residents</Typography.Text>}
-              bordered
-              dataSource={currenPlanet.residents}
-              renderItem={resident => (
-                <List.Item>
-                  <a href={resident} target="_blank" rel="noreferrer">{resident}</a>
-                </List.Item>
-              )}
-              className="list"
-              style={{ marginBottom: 15 }}
-            />
-          ) : null}
-          {currenPlanet.films.length ? (
-            <List
-              header={<Typography.Text>Films</Typography.Text>}
-              bordered
-              dataSource={currenPlanet.films}
-              renderItem={film => (
-                <List.Item>
-                  <a href={film} target="_blank" rel="noreferrer">{film}</a>
-                </List.Item>
-              )}
-              className="list"
-            />
-          ) : null}
+          <List array={currenPlanet.residents} title="Residents" />
+          <List array={currenPlanet.films} title="Films" />
         </>
       ) : (
         <Loader />

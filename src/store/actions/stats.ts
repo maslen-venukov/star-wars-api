@@ -31,7 +31,8 @@ export const fetchStats = () => (dispatch: Dispatch<StatAction>) => {
           }, [])
           dispatch(setStats(stats))
         }))
+        .catch(() => message.error('Error loading stats'))
+        .finally(() => dispatch(setStatsLoading(false)))
     })
     .catch(() => message.error('Error loading stats'))
-    .finally(() => dispatch(setStatsLoading(false)))
 }

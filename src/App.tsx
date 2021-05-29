@@ -5,6 +5,7 @@ import Layout from 'antd/lib/layout'
 
 import Stats from './pages/Stats'
 import Planets from './pages/Planets'
+import CurrentPlanet from './pages/CurrentPlanet'
 
 import Header from './components/Header'
 import Container from './components/Container'
@@ -17,6 +18,7 @@ const App: React.FC = () => {
         <Container>
           <Switch>
             <Route exact path="/" component={Stats} />
+            <Route path="/planets/:number" component={CurrentPlanet} />
             <Route path="/planets" component={Planets} />
             <Redirect to="/" />
           </Switch>

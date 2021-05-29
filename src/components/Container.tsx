@@ -1,8 +1,12 @@
 import React from 'react'
 
-const Container: React.FC = ({ children }) => {
+interface IHeaderProps {
+  className?: string
+}
+
+const Container: React.FC<IHeaderProps> = ({ children, className }) => {
   return (
-    <div className="container">
+    <div className={`container ${className}`}>
       {children}
     </div>
   )

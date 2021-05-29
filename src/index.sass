@@ -1,3 +1,6 @@
+$gray: #d9d9d9
+$light-gray: #f0f0f0
+
 html,
 body
   overflow-x: hidden
@@ -5,6 +8,16 @@ body
 .layout
   width: 100vw
   min-height: 100vh
+
+.header
+  &__container
+    display: flex
+    align-items: center
+    justify-content: space-between
+  &__title
+    color: #fff
+    a
+      color: inherit
 
 .container
   width: 100%
@@ -26,3 +39,16 @@ body
   justify-content: center
   align-items: center
   height: 100px
+
+.list
+  .ant-list-header,
+  .ant-list-item,
+    border-color: $gray !important
+    &:not(.ant-list-header):hover
+      background-color: $light-gray
+      cursor: pointer
+
+.planet-header
+  padding-left: 0
+  .ant-typography
+    margin-bottom: 0

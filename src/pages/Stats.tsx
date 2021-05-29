@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
+import Loader from '../components/Loader'
+
 import Card from 'antd/lib/card'
 import Statistic from 'antd/lib/statistic'
-import Spin from 'antd/lib/spin'
 
 import { setStats, fetchStats } from '../store/actions/stats'
 
@@ -29,9 +30,7 @@ const Stats: React.FC = () => {
             <Statistic title={stat.name} value={stat.count} className="stats" />
           </Card>
         ))) : (
-          <div className="loading">
-            <Spin size="large" />
-          </div>
+          <Loader />
         )
       }
     </>

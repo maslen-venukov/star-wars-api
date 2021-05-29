@@ -2,6 +2,7 @@ import { IPlanetsState, PlanetAction, PlanetActionTypes } from '../../types/plan
 
 const initialState: IPlanetsState = {
   planets: [],
+  currenPlanet: null,
   count: 0,
   isLoading: false
 }
@@ -12,6 +13,12 @@ const planets = (state = initialState, action: PlanetAction): IPlanetsState => {
       return {
         ...state,
         planets: action.payload
+      }
+
+    case PlanetActionTypes.SET_CURRENT_PLANET:
+      return {
+        ...state,
+        currenPlanet: action.payload
       }
 
     case PlanetActionTypes.SET_PLANETS_COUNT:

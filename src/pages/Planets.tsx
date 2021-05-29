@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import queryString from 'query-string'
 
-import Table from 'antd/lib/table'
-import Column from 'antd/lib/table/Column'
+import List from 'antd/lib/list'
+import Typography from 'antd/lib/typography'
 
 import { setPlanets, fetchPlanets } from '../store/actions/planets'
 
@@ -43,11 +43,23 @@ const Planets: React.FC = () => {
       : history.push(history.location.pathname + '?page=' + page)
   }
 
+  const onItemClick = (url: string) => {
+    const number = url.split('/').filter(el => el).pop()
+    history.push(`/planets/${number}`)
+  }
+
   return (
-    <Table
-      dataSource={planets}
+    <List
+      header={<Typography.Text>List of Planets</Typography.Text>}
       loading={isLoading}
       rowKey={record => record.name}
+      bordered
+      dataSource={planets}
+      renderItem={planet => (
+        <List.Item onClick={() => onItemClick(planet.url)}>
+          {planet.name}
+        </List.Item>
+      )}
       pagination={{
         defaultCurrent: 1,
         current: page,
@@ -55,17 +67,8 @@ const Planets: React.FC = () => {
         onChange,
         showSizeChanger: false
       }}
-    >
-      <Column title="Name" dataIndex="name" key="name" />
-      <Column title="Rotation Period" dataIndex="rotation_period" key="rotation_period" />
-      <Column title="Orbital Period" dataIndex="orbital_period" key="orbital_period" />
-      <Column title="Diameter" dataIndex="diameter" key="diameter" />
-      <Column title="Climate" dataIndex="climate" key="climate" />
-      <Column title="Gravity" dataIndex="gravity" key="gravity" />
-      <Column title="Terrain" dataIndex="terrain" key="terrain" />
-      <Column title="Surface Water" dataIndex="surface_water" key="terrain" />
-      <Column title="Population" dataIndex="population" key="terrain" />
-    </Table>
+      className="list"
+    />
   )
 }
 

@@ -36,10 +36,19 @@ export const fetchPlanets = (page: number = 1) => (dispatch: Dispatch<PlanetActi
     .finally(() => dispatch(setPlanetsLoading(false)))
 }
 
-export const fetchCurrentPage = (number: string) => (dispatch: Dispatch<PlanetAction>) => {
+export const fetchCurrentPage = (number: string, onBack: () => void) => (dispatch: Dispatch<PlanetAction>) => {
   dispatch(setPlanetsLoading(true))
   axios.get(`/api/planets/${number}`)
     .then(({ data }) => dispatch(setCurrentPlanet(data)))
-    .catch(() => message.error('Error loading planet'))
+    .catch(e => {
+      switch(e.response.status) {
+        case 404:
+          onBack()
+          return message.error('Not found')
+
+        default:
+          return message.error('Error loading planet')
+      }
+    })
     .finally(() => dispatch(setPlanetsLoading(false)))
 }

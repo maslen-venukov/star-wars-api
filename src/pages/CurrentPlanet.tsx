@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory, useParams } from 'react-router-dom'
 
@@ -25,19 +25,23 @@ const CurrentPlanet: React.FC = () => {
 
   const { currenPlanet, isLoading } = useSelector((state: RootState) => state.planets)
 
+  const onBack = useCallback(() => {
+    history.push('/planets')
+  }, [history])
+
   useEffect(() => {
-    dispatch(fetchCurrentPage(number))
+    dispatch(fetchCurrentPage(number, onBack))
     return () => {
       dispatch(setCurrentPlanet(null))
     }
-  }, [dispatch, number])
+  }, [dispatch, number, onBack])
 
   return (
     <>
       {!isLoading ? (
         currenPlanet && <>
           <PageHeader
-            onBack={() => history.push('/planets')}
+            onBack={onBack}
             title={<Typography.Title>{currenPlanet.name}</Typography.Title>}
             className="planet-header"
           />
